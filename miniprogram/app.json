@@ -1,0 +1,51 @@
+{
+  "pages": [
+    "pages/bazi/bazi",
+    "pages/lifetree/lifetree",
+    "pages/zhiku/zhiku",
+    "pages/energy/energy",
+    "pages/history/history",
+    "pages/onboarding/onboarding"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#121212",
+    "navigationBarTitleText": "灵琪AI",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#0C0C0C"
+  },
+  "tabBar": {
+    "color": "#888888",
+    "selectedColor": "#D4AF37",
+    "backgroundColor": "#121212",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/lifetree/lifetree",
+        "text": "人生树",
+        "iconPath": "assets/icons/tree.png",
+        "selectedIconPath": "assets/icons/tree-active.png"
+      },
+      {
+        "pagePath": "pages/bazi/bazi",
+        "text": "命盘",
+        "iconPath": "assets/icons/bagua.png",
+        "selectedIconPath": "assets/icons/bagua-active.png"
+      },
+      {
+        "pagePath": "pages/zhiku/zhiku",
+        "text": "智库",
+        "iconPath": "assets/icons/book.png",
+        "selectedIconPath": "assets/icons/book-active.png"
+      },
+      {
+        "pagePath": "pages/energy/energy",
+        "text": "能量",
+        "iconPath": "assets/icons/lightning.png",
+        "selectedIconPath": "assets/icons/lightning-active.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

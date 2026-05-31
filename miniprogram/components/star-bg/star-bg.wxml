@@ -1,0 +1,24 @@
+<view class="star-bg" style="opacity: {{opacity}}">
+  <!-- 星宿星点（静态） -->
+  <view class="constellation-layer">
+    <block wx:for="{{constellationStars}}" wx:key="id">
+      <view 
+        class="constellation-star"
+        style="left: {{item.left}}; top: {{item.top}}; width: {{item.size}}; height: {{item.size}}; animation-delay: {{item.delay}};"
+      ></view>
+    </block>
+  </view>
+  
+  <!-- 上升粒子光点 -->
+  <view class="particle-layer">
+    <block wx:for="{{particles}}" wx:key="id">
+      <view 
+        class="particle"
+        style="left: {{item.left}}; top: {{item.top}}; width: {{item.size}}; height: {{item.size}}; opacity: {{item.opacity}}; animation-delay: {{item.delay}}; animation-duration: {{item.duration}};"
+      ></view>
+    </block>
+  </view>
+  
+  <!-- 底部渐变过渡 -->
+  <view class="bg-gradient-bottom"></view>
+</view>

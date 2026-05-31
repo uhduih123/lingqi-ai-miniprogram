@@ -1,0 +1,137 @@
+/* ========================================
+   灵琪AI · 通用工具类
+   ======================================== */
+
+/* ---- 页面背景 ---- */
+.page-dark {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #0C0C0C 0%, #1A1F2B 100%);
+}
+
+/* ---- 卡片 ---- */
+.card-gold {
+  background: var(--bg-card);
+  border: var(--border-gold);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card), var(--shadow-gold);
+  padding: var(--spacing-lg);
+  margin: 0 var(--spacing-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-dark {
+  background: var(--bg-card);
+  border: var(--border-subtle);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-md);
+}
+
+/* ---- 按钮 ---- */
+.btn-gold {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 88rpx;
+  border-radius: var(--radius-btn);
+  background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 50%, var(--color-gold) 100%);
+  color: #1A1A1A;
+  font-size: 32rpx;
+  font-weight: 600;
+  letter-spacing: 4rpx;
+  box-shadow: 0 4rpx 16rpx rgba(212, 175, 55, 0.3);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-gold:active {
+  transform: scale(0.96);
+  box-shadow: 0 2rpx 8rpx rgba(212, 175, 55, 0.2);
+}
+
+.btn-dark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 72rpx;
+  border-radius: var(--radius-btn);
+  background: rgba(255, 255, 255, 0.08);
+  border: var(--border-subtle);
+  color: var(--text-primary);
+  font-size: 28rpx;
+  transition: transform 0.15s ease;
+}
+
+.btn-dark:active {
+  transform: scale(0.96);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* ---- 文字 ---- */
+.text-gold {
+  color: var(--color-gold);
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-serif {
+  font-family: var(--font-title);
+}
+
+/* ---- 布局 ---- */
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ---- 分割线 ---- */
+.divider-gold {
+  height: 1rpx;
+  background: var(--divider-gold);
+  margin: var(--spacing-md) 0;
+}
+
+/* ---- 间距 ---- */
+.mt-sm { margin-top: var(--spacing-sm); }
+.mt-md { margin-top: var(--spacing-md); }
+.mt-lg { margin-top: var(--spacing-lg); }
+.mb-sm { margin-bottom: var(--spacing-sm); }
+.mb-md { margin-bottom: var(--spacing-md); }
+.mb-lg { margin-bottom: var(--spacing-lg); }
+.px-md { padding-left: var(--spacing-md); padding-right: var(--spacing-md); }
+
+/* ---- 文字对齐 ---- */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.text-primary { color: var(--text-primary); }
+
+/* ---- 边距补充 ---- */
+.ml-sm { margin-left: var(--spacing-sm); }
+.ml-md { margin-left: var(--spacing-md); }
+.mr-sm { margin-right: var(--spacing-sm); }
+.mr-md { margin-right: var(--spacing-md); }

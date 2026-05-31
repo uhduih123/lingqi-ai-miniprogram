@@ -1,0 +1,17 @@
+@import "./styles/theme.wxss";
+@import "./styles/common.wxss";
+
+page {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", sans-serif;
+  font-size: 28rpx;
+  line-height: 1.6;
+}
+
+/* 隐藏滚动条 */
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}

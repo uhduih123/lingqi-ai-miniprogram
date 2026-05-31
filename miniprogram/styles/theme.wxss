@@ -1,0 +1,69 @@
+/* ========================================
+   灵琪AI · 全局主题变量
+   暗黑鎏金风格
+   ======================================== */
+
+page {
+  /* ---- 主色 ---- */
+  --color-gold: #D4AF37;
+  --color-gold-light: #F0D060;
+  --color-gold-dark: #B8941F;
+  --color-gold-glow: rgba(212, 175, 55, 0.4);
+  
+  /* ---- 背景 ---- */
+  --bg-primary: #0C0C0C;
+  --bg-secondary: #1A1F2B;
+  --bg-card: rgba(20, 20, 20, 0.85);
+  --bg-card-solid: #1A1A1A;
+  --bg-overlay: rgba(0, 0, 0, 0.6);
+  
+  /* ---- 文字 ---- */
+  --text-primary: #E8E8E8;
+  --text-secondary: #AAAAAA;
+  --text-muted: #666666;
+  --text-gold: #D4AF37;
+  
+  /* ---- 五行色 ---- */
+  --wx-metal: #E5D3B3;
+  --wx-metal-bg: rgba(229, 211, 179, 0.2);
+  --wx-wood: #8FBC8F;
+  --wx-wood-bg: rgba(107, 142, 90, 0.2);
+  --wx-water: #7BA4CC;
+  --wx-water-bg: rgba(74, 107, 138, 0.2);
+  --wx-fire: #E08070;
+  --wx-fire-bg: rgba(192, 74, 58, 0.2);
+  --wx-earth: #C9A050;
+  --wx-earth-bg: rgba(184, 134, 11, 0.2);
+  
+  /* ---- 边框与分割 ---- */
+  --border-gold: 1rpx solid rgba(212, 175, 55, 0.3);
+  --border-gold-strong: 1rpx solid rgba(212, 175, 55, 0.6);
+  --border-subtle: 1rpx solid rgba(255, 255, 255, 0.06);
+  --divider-gold: linear-gradient(90deg, 
+    rgba(212, 175, 55, 0) 0%, 
+    rgba(212, 175, 55, 0.5) 50%, 
+    rgba(212, 175, 55, 0) 100%);
+  
+  /* ---- 圆角 ---- */
+  --radius-card: 16rpx;
+  --radius-btn: 24rpx;
+  --radius-sm: 8rpx;
+  --radius-lg: 32rpx;
+  
+  /* ---- 阴影 ---- */
+  --shadow-card: 0 4rpx 20rpx rgba(0, 0, 0, 0.4);
+  --shadow-gold: 0 0 12rpx rgba(212, 175, 55, 0.15);
+  --shadow-gold-strong: 0 0 20rpx rgba(212, 175, 55, 0.3);
+  
+  /* ---- 间距 ---- */
+  --spacing-xs: 8rpx;
+  --spacing-sm: 16rpx;
+  --spacing-md: 24rpx;
+  --spacing-lg: 32rpx;
+  --spacing-xl: 48rpx;
+  
+  /* ---- 字体 ---- */
+  --font-title: "Songti SC", "STSong", "SimSun", "Noto Serif CJK SC", serif;
+  --font-body: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif;
+  --font-mono: "SF Mono", "Menlo", "Consolas", monospace;
+}

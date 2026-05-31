@@ -1,0 +1,64 @@
+<view class="remedy-section" wx:if="{{advice}}">
+  <view class="remedy-title text-serif text-gold">✦ 补运建议</view>
+  
+  <view class="remedy-tabs">
+    <block wx:for="{{tabs}}" wx:key="*this">
+      <view 
+        class="remedy-tab {{activeTab === index ? 'tab-active' : ''}}"
+        data-idx="{{index}}"
+        bindtap="switchTab"
+      >{{item}}</view>
+    </block>
+  </view>
+  
+  <view class="remedy-content">
+    <view wx:if="{{activeTab === 0}}" class="remedy-colors">
+      <view class="remedy-hint text-secondary">{{advice.hint}}</view>
+      <view class="color-dots">
+        <block wx:for="{{advice.colors}}" wx:key="*this" wx:for-item="c" wx:for-index="i">
+          <view class="color-dot-wrap" data-color="{{c}}" bindtap="copyColor">
+            <view class="color-dot" style="background: {{c}}; box-shadow: 0 0 12rpx {{c}};"></view>
+            <text class="color-name">{{advice.colorNames[i]}}</text>
+          </view>
+        </block>
+      </view>
+    </view>
+    
+    <view wx:if="{{activeTab === 1}}" class="remedy-items">
+      <block wx:for="{{advice.items}}" wx:key="name">
+        <view class="item-row">
+          <text class="item-emoji">{{item.emoji}}</text>
+          <text class="item-name">{{item.name}}</text>
+        </view>
+      </block>
+    </view>
+    
+    <view wx:if="{{activeTab === 2}}" class="remedy-direction">
+      <view class="compass">
+        <view class="compass-ring">
+          <view class="compass-center text-serif text-gold">{{advice.direction}}</view>
+        </view>
+        <view class="direction-desc text-secondary">{{advice.directionDesc}}</view>
+      </view>
+    </view>
+    
+    <view wx:if="{{activeTab === 3}}" class="remedy-actions">
+      <block wx:for="{{advice.actions}}" wx:key="*this" wx:for-index="i">
+        <view class="action-row">
+          <text class="action-num text-gold">{{i + 1}}.</text>
+          <text class="action-text">{{item}}</text>
+        </view>
+      </block>
+    </view>
+  </view>
+  
+  <view class="remedy-footer">
+    <view class="footer-row">
+      <text class="text-gold">⚠</text>
+      <text class="text-secondary">{{advice.health}}</text>
+    </view>
+    <view class="footer-row mt-sm">
+      <text class="text-muted">格局简评：{{advice.summary}}</text>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,36 @@
+<view class="wuxing-chart">
+  <view class="chart-title text-serif text-gold">五行力量</view>
+  
+  <view class="chart-rows">
+    <block wx:for="{{wuxingData}}" wx:key="name">
+      <view class="chart-row">
+        <view class="chart-label">
+          <text class="chart-icon">{{item.icon}}</text>
+          <text class="chart-name" style="color: {{item.color}}">{{item.name}}</text>
+        </view>
+        
+        <view class="chart-bar-wrap">
+          <view 
+            class="chart-bar {{item.isEmpty ? 'bar-empty' : ''}}"
+            style="background: {{item.barColor}}; width: {{animated ? item.percent : 0}}%;"
+          ></view>
+        </view>
+        
+        <view class="chart-value">
+          <block wx:if="{{!item.isEmpty}}">
+            <text style="color: {{item.color}}">{{item.count}}</text>
+          </block>
+          <block wx:else>
+            <text class="value-missing" data-wx="{{item.name}}" bindtap="onMissingTap">缺</text>
+          </block>
+        </view>
+      </view>
+    </block>
+  </view>
+  
+  <view class="balance-comment text-center" wx:if="{{balanceComment}}">
+    <text class="text-gold">✦</text>
+    <text class="text-secondary">{{balanceComment}}</text>
+    <text class="text-gold">✦</text>
+  </view>
+</view>

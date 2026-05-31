@@ -1,0 +1,50 @@
+.relation-section {
+  padding: var(--spacing-sm) 0;
+}
+
+.relation-shiShen {
+  font-size: 26rpx;
+  padding: var(--spacing-sm) 0;
+}
+
+.relation-shiShen-value {
+  color: var(--color-gold);
+  font-weight: 500;
+}
+
+.relation-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+  margin-top: var(--spacing-sm);
+}
+
+.relation-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12rpx;
+  padding: 12rpx var(--spacing-md);
+  background: rgba(255, 255, 255, 0.02);
+  border-left: 4rpx solid;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.relation-type {
+  font-size: 24rpx;
+  font-weight: 600;
+  min-width: 100rpx;
+}
+
+.relation-detail {
+  font-size: 24rpx;
+  line-height: 1.5;
+}
+
+.sanhe-badge {
+  margin-top: var(--spacing-sm);
+  padding: 12rpx var(--spacing-md);
+  text-align: center;
+  border: 1rpx solid;
+  border-radius: var(--radius-btn);
+  font-size: 26rpx;
+}

@@ -1,0 +1,89 @@
+.monthly-section {
+  padding: var(--spacing-sm) 0;
+}
+
+.monthly-toggle {
+  text-align: center;
+  padding: var(--spacing-md) 0;
+  font-size: 26rpx;
+}
+
+/* ---- 网格容器 ---- */
+.monthly-grid {
+  max-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8rpx;
+  transition: max-height 0.5s ease;
+}
+
+.grid-show {
+  max-height: 1200rpx;
+}
+
+/* ---- 月份卡片 ---- */
+.month-card {
+  width: calc(33.33% - 6rpx);
+  padding: 12rpx 8rpx;
+  background: rgba(255, 255, 255, 0.03);
+  border: var(--border-subtle);
+  border-radius: var(--radius-sm);
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.month-current {
+  border-color: rgba(212, 175, 55, 0.5);
+  background: rgba(212, 175, 55, 0.08);
+  animation: currentGlow 2s ease-in-out infinite;
+}
+
+@keyframes currentGlow {
+  0%, 100% { box-shadow: 0 0 8rpx rgba(212, 175, 55, 0.1); }
+  50% { box-shadow: 0 0 20rpx rgba(212, 175, 55, 0.25); }
+}
+
+.month-good {
+  border-left: 3rpx solid #8FBC8F;
+}
+
+.month-bad {
+  border-left: 3rpx solid #C04A3A;
+}
+
+.month-header {
+  display: flex;
+  flex-direction: column;
+  gap: 2rpx;
+}
+
+.month-name {
+  font-size: 22rpx;
+  color: var(--text-secondary);
+}
+
+.month-ganzhi {
+  font-size: 20rpx;
+  font-family: var(--font-title);
+}
+
+.month-fortune {
+  font-size: 20rpx;
+  margin-top: 6rpx;
+  line-height: 1.4;
+}
+
+.month-level {
+  margin-top: 4rpx;
+}
+
+.level-tag {
+  font-size: 18rpx;
+  padding: 2rpx 10rpx;
+  border-radius: 4rpx;
+}
+
+.level-good { color: #8FBC8F; background: rgba(143, 188, 143, 0.15); }
+.level-bad { color: #E08070; background: rgba(192, 74, 58, 0.15); }
+.level-neutral { color: #888; background: rgba(255, 255, 255, 0.05); }

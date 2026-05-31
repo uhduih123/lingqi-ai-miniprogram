@@ -1,0 +1,31 @@
+<view class="relation-section" wx:if="{{shiShen}}">
+  <!-- 流年十神 -->
+  <view class="relation-shiShen text-center">
+    <text class="text-secondary">流年</text>
+    <text class="text-gold" style="margin: 0 8rpx;">{{liunian.gan}}</text>
+    <text class="text-secondary">为日主之</text>
+    <text class="relation-shiShen-value">「{{shiShen}}」</text>
+  </view>
+
+  <!-- 关系列表 -->
+  <view class="relation-list" wx:if="{{relations.length}}">
+    <block wx:for="{{relations}}" wx:key="type">
+      <view class="relation-item" style="border-left-color: {{item.color}};">
+        <text class="relation-type" style="color: {{item.color}};">{{item.type}}</text>
+        <text class="relation-detail text-secondary">{{item.detail}}</text>
+      </view>
+    </block>
+  </view>
+  
+  <view class="relation-list" wx:else>
+    <view class="relation-item" style="border-left-color: #888;">
+      <text class="relation-type" style="color: #888;">平和</text>
+      <text class="relation-detail text-secondary">流年与日柱无特殊冲合</text>
+    </view>
+  </view>
+
+  <!-- 三合局 -->
+  <view class="sanhe-badge" wx:if="{{sanHe}}" style="border-color: {{sanHe.color}};">
+    <text style="color: {{sanHe.color}};">✦ {{sanHe.name}}</text>
+  </view>
+</view>

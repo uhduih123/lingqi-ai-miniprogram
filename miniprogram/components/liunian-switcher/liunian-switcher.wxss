@@ -1,0 +1,71 @@
+.liunian-switcher {
+  padding: var(--spacing-sm) 0;
+}
+
+.switcher-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--spacing-md);
+}
+
+.switcher-arrow {
+  width: 64rpx;
+  height: 64rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  font-size: 28rpx;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+  transition: all 0.2s ease;
+}
+
+.switcher-arrow:active {
+  background: rgba(212, 175, 55, 0.15);
+  color: var(--color-gold);
+  transform: scale(0.9);
+}
+
+.switcher-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.ganzhi-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.ganzhi-wrap.flipping {
+  transform: translateY(-10rpx);
+  opacity: 0.3;
+}
+
+.ganzhi-emoji {
+  font-size: 48rpx;
+}
+
+.ganzhi-text {
+  display: flex;
+  gap: 4rpx;
+  font-size: 52rpx;
+  font-family: var(--font-title);
+  font-weight: bold;
+  text-shadow: 0 0 8rpx currentColor;
+}
+
+.ganzhi-year {
+  font-size: 20rpx;
+  font-family: var(--font-body);
+  font-weight: normal;
+}
+
+.switcher-desc {
+  margin-top: 8rpx;
+  font-size: 22rpx;
+}

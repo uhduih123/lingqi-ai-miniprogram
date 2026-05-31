@@ -1,0 +1,77 @@
+.star-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.constellation-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  animation: constellationDrift 120s linear infinite;
+}
+
+@keyframes constellationDrift {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(8rpx, -4rpx); }
+  50% { transform: translate(-4rpx, 6rpx); }
+  75% { transform: translate(-6rpx, -3rpx); }
+  100% { transform: translate(0, 0); }
+}
+
+.constellation-star {
+  position: absolute;
+  background: rgba(212, 175, 55, 0.4);
+  border-radius: 50%;
+  animation: twinkle 3s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.2; transform: scale(0.7); }
+  100% { opacity: 0.6; transform: scale(1.3); }
+}
+
+.particle-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.particle {
+  position: absolute;
+  background: #D4AF37;
+  border-radius: 50%;
+  box-shadow: 0 0 6rpx rgba(212, 175, 55, 0.3);
+  animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(0);
+    opacity: 0;
+  }
+  10% { opacity: 1; }
+  90% { opacity: 0.2; }
+  100% {
+    transform: translateY(-100vh) scale(1.5);
+    opacity: 0;
+  }
+}
+
+.bg-gradient-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 200rpx;
+  background: linear-gradient(to top, #0C0C0C 0%, transparent 100%);
+}

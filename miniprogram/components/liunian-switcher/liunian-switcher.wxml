@@ -1,0 +1,22 @@
+<view class="liunian-switcher">
+  <view class="switcher-row">
+    <view class="switcher-arrow" bindtap="onPrev">◀</view>
+    
+    <view class="switcher-center">
+      <view class="ganzhi-wrap {{flipping ? 'flipping' : ''}}">
+        <text class="ganzhi-emoji">{{shengXiaoEmoji}}</text>
+        <view class="ganzhi-text">
+          <text class="ganzhi-gan" style="color: {{ganColor}}">{{gan}}</text>
+          <text class="ganzhi-zhi" style="color: {{zhiColor}}">{{zhi}}</text>
+        </view>
+        <text class="ganzhi-year text-gold">{{year}}年</text>
+      </view>
+    </view>
+    
+    <view class="switcher-arrow" bindtap="onNext">▶</view>
+  </view>
+  
+  <view class="switcher-desc text-center text-muted">
+    流年天干{{gan}}{{ganWuxing}}，地支{{zhi}}{{zhiWuxing}}
+  </view>
+</view>

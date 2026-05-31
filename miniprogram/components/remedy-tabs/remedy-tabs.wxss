@@ -1,0 +1,155 @@
+.remedy-section {
+  padding: var(--spacing-sm) 0;
+}
+
+.remedy-title {
+  font-size: 26rpx;
+  letter-spacing: 4rpx;
+  margin-bottom: var(--spacing-md);
+}
+
+/* ---- 标签栏 ---- */
+.remedy-tabs {
+  display: flex;
+  gap: 8rpx;
+  margin-bottom: var(--spacing-md);
+}
+
+.remedy-tab {
+  flex: 1;
+  text-align: center;
+  padding: 12rpx 0;
+  font-size: 24rpx;
+  color: var(--text-muted);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.03);
+  transition: all 0.25s ease;
+}
+
+.tab-active {
+  color: var(--color-gold);
+  background: rgba(212, 175, 55, 0.12);
+  border: var(--border-gold);
+}
+
+/* ---- 颜色页 ---- */
+.remedy-hint {
+  font-size: 24rpx;
+  padding: var(--spacing-sm) 0;
+  text-align: center;
+}
+
+.color-dots {
+  display: flex;
+  justify-content: center;
+  gap: 32rpx;
+  padding: var(--spacing-md) 0;
+}
+
+.color-dot-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.color-dot {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  border: 2rpx solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.2s ease;
+}
+
+.color-dot:active {
+  transform: scale(1.15);
+}
+
+.color-name {
+  font-size: 20rpx;
+  color: var(--text-secondary);
+}
+
+/* ---- 饰品页 ---- */
+.item-row {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 16rpx;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--radius-sm);
+  margin-bottom: 8rpx;
+}
+
+.item-emoji {
+  font-size: 36rpx;
+}
+
+.item-name {
+  font-size: 26rpx;
+  color: var(--text-primary);
+}
+
+/* ---- 方位页 ---- */
+.compass {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-md) 0;
+}
+
+.compass-ring {
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 50%;
+  border: 2rpx solid rgba(212, 175, 55, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+  animation: compassPulse 3s ease-in-out infinite;
+}
+
+@keyframes compassPulse {
+  0%, 100% { box-shadow: 0 0 16rpx rgba(212, 175, 55, 0.1); }
+  50% { box-shadow: 0 0 32rpx rgba(212, 175, 55, 0.25); }
+}
+
+.compass-center {
+  font-size: 36rpx;
+  letter-spacing: 4rpx;
+}
+
+.direction-desc {
+  margin-top: var(--spacing-sm);
+  font-size: 24rpx;
+}
+
+/* ---- 行为页 ---- */
+.action-row {
+  display: flex;
+  gap: 12rpx;
+  padding: 14rpx 0;
+}
+
+.action-num {
+  font-size: 24rpx;
+  min-width: 40rpx;
+}
+
+.action-text {
+  font-size: 26rpx;
+  color: var(--text-primary);
+}
+
+/* ---- 底部 ---- */
+.remedy-footer {
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  border-top: var(--border-subtle);
+}
+
+.footer-row {
+  font-size: 24rpx;
+  line-height: 1.6;
+}

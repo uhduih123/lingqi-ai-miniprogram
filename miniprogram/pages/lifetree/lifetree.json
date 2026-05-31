@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "star-bg": "/components/star-bg/star-bg"
+  },
+  "navigationBarTitleText": "人生树"
+}

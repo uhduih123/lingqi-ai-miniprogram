@@ -1,0 +1,20 @@
+<view class="monthly-section">
+  <view class="monthly-toggle" bindtap="toggle">
+    <text class="text-gold">{{expanded ? '收起流月 ▲' : '展开流月 ▶'}}</text>
+  </view>
+  
+  <view class="monthly-grid {{expanded ? 'grid-show' : ''}}">
+    <block wx:for="{{months}}" wx:key="month">
+      <view class="{{item.cardClass}}">
+        <view class="month-header">
+          <text class="month-name">{{item.name}}</text>
+          <text class="month-ganzhi text-gold">{{item.ganZhi}}</text>
+        </view>
+        <view class="month-fortune text-secondary">{{item.fortune}}</view>
+        <view class="month-level" wx:if="{{item.level}}">
+          <text class="{{item.tagClass}}">{{item.level}}</text>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

@@ -1,0 +1,13 @@
+{
+  "usingComponents": {
+    "star-bg": "/components/star-bg/star-bg",
+    "bazi-pillars": "/components/bazi-pillars/bazi-pillars",
+    "wuxing-chart": "/components/wuxing-chart/wuxing-chart",
+    "liunian-switcher": "/components/liunian-switcher/liunian-switcher",
+    "liunian-relation": "/components/liunian-relation/liunian-relation",
+    "remedy-tabs": "/components/remedy-tabs/remedy-tabs",
+    "monthly-fortune": "/components/monthly-fortune/monthly-fortune"
+  },
+  "navigationBarTitleText": "命盘",
+  "navigationStyle": "custom"
+}

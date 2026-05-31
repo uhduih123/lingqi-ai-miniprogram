@@ -1,0 +1,141 @@
+/* ========================================
+   四柱盘面组件
+   ======================================== */
+
+.pillars-container {
+  padding: var(--spacing-md) 0;
+}
+
+/* ---- 四柱横排 ---- */
+.pillars-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  gap: 8rpx;
+}
+
+/* ---- 单个柱位 ---- */
+.pillar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 140rpx;
+  border-radius: var(--radius-card);
+  background: rgba(255, 255, 255, 0.03);
+  border: var(--border-subtle);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.pillar:active {
+  transform: scale(0.95);
+}
+
+.pillar-expanded {
+  border-color: rgba(212, 175, 55, 0.5);
+  box-shadow: var(--shadow-gold);
+}
+
+/* ---- 日柱特殊样式 ---- */
+.pillar-day {
+  width: 160rpx;
+  transform: scale(1.08);
+  border: var(--border-gold-strong);
+  box-shadow: var(--shadow-gold-strong);
+  position: relative;
+  z-index: 2;
+}
+
+.pillar-day:active {
+  transform: scale(1.03);
+}
+
+.pillar-label {
+  font-size: 20rpx;
+  color: var(--text-muted);
+  padding: 6rpx 0;
+  letter-spacing: 2rpx;
+}
+
+.pillar-gan, .pillar-zhi {
+  width: 100%;
+  text-align: center;
+  padding: 10rpx 0;
+  font-size: 36rpx;
+  font-family: var(--font-title);
+  font-weight: bold;
+  position: relative;
+}
+
+.pillar-day .pillar-gan {
+  font-size: 44rpx;
+  padding: 14rpx 0;
+  text-shadow: 0 0 12rpx currentColor;
+}
+
+.pillar-wx-tag {
+  display: block;
+  font-size: 18rpx;
+  font-family: var(--font-body);
+  font-weight: normal;
+  margin-top: 2rpx;
+  opacity: 0.7;
+}
+
+.pillar-divider {
+  width: 70%;
+  height: 1rpx;
+  background: linear-gradient(90deg, transparent, rgba(212,175,55,0.3), transparent);
+}
+
+.pillar-day-label {
+  font-size: 18rpx;
+  padding: 4rpx 0 8rpx;
+  color: var(--color-gold);
+  letter-spacing: 2rpx;
+}
+
+/* ---- 日主信息 ---- */
+.rizhu-info {
+  text-align: center;
+  margin-top: var(--spacing-sm);
+}
+
+.rizhu-title {
+  font-size: 28rpx;
+  letter-spacing: 4rpx;
+}
+
+/* ---- 藏干十神折叠区 ---- */
+.pillar-detail {
+  max-height: 0;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: var(--radius-sm);
+  margin: 6rpx 32rpx 0;
+  padding: 0 var(--spacing-md);
+  transition: max-height 0.35s ease, padding 0.35s ease, margin 0.35s ease;
+}
+
+.detail-show {
+  max-height: 200rpx;
+  padding: var(--spacing-md);
+  margin: 12rpx 32rpx 0;
+}
+
+.detail-row {
+  display: flex;
+  align-items: baseline;
+  padding: 6rpx 0;
+}
+
+.detail-label {
+  font-size: 22rpx;
+  color: var(--text-muted);
+  min-width: 80rpx;
+}
+
+.detail-value {
+  font-size: 24rpx;
+  color: var(--text-secondary);
+}

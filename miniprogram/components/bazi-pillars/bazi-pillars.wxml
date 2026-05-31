@@ -1,0 +1,53 @@
+<view class="pillars-container" wx:if="{{pillars.length}}">
+  <view class="pillars-row">
+    <block wx:for="{{pillars}}" wx:key="key">
+      <view 
+        class="pillar {{item.isDay ? 'pillar-day' : ''}} {{expandedPillar === item.key ? 'pillar-expanded' : ''}}"
+        data-key="{{item.key}}"
+        bindtap="onPillarTap"
+        bindlongpress="{{item.isDay ? 'onRiZhuLongPress' : ''}}"
+      >
+        <view class="pillar-label">{{item.label}}</view>
+        <view class="pillar-gan" style="color: {{item.ganColor}}; background: {{item.ganBg}};">
+          {{item.gan}}
+          <text class="pillar-wx-tag">{{item.ganWuxing}}</text>
+        </view>
+        <view class="pillar-divider"></view>
+        <view class="pillar-zhi" style="color: {{item.zhiColor}}; background: {{item.zhiBg}};">
+          {{item.zhi}}
+          <text class="pillar-wx-tag">{{item.zhiWuxing}}</text>
+        </view>
+        <view wx:if="{{item.isDay}}" class="pillar-day-label">
+          <text class="text-gold">日主</text>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <view class="rizhu-info" wx:if="{{riZhu}}">
+    <text class="rizhu-title text-serif text-gold">日主·{{riZhu.gan}}{{riZhu.wuxing}}</text>
+  </view>
+
+  <block wx:for="{{pillars}}" wx:key="key">
+    <view 
+      class="pillar-detail {{expandedPillar === item.key ? 'detail-show' : ''}}"
+    >
+      <view class="detail-row">
+        <text class="detail-label">藏干：</text>
+        <text class="detail-value">{{item.cangGanStr}}</text>
+      </view>
+      <view class="detail-row">
+        <text class="detail-label">十神：</text>
+        <text class="detail-value">{{item.shiShen}}</text>
+      </view>
+      <view class="detail-row">
+        <text class="detail-label">纳音：</text>
+        <text class="detail-value text-gold">{{item.naYin}}</text>
+      </view>
+    </view>
+  </block>
+</view>
+
+<view wx:else class="text-center text-muted" style="padding: 60rpx 0;">
+  请输入生日后点击排盘
+</view>

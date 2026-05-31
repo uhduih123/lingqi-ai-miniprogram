@@ -1,0 +1,117 @@
+<star-bg />
+<view class="bazi-page">
+  
+  <view class="nav-bar {{headerShadow ? 'nav-shadow' : ''}}" 
+        style="padding-top: {{statusBarHeight}}px; height: {{navBarHeight}}px;">
+    <view class="nav-content">
+      <view class="nav-title text-serif text-gold">命盘·八字</view>
+      <view class="nav-history text-muted" bindtap="goHistory">🕐</view>
+    </view>
+  </view>
+
+  <scroll-view 
+    class="bazi-scroll" 
+    scroll-y 
+    enhanced 
+    show-scrollbar="{{false}}"
+    style="padding-top: {{headerTotalHeight}}px;"
+    bindscroll="onScroll"
+  >
+    <view class="content-padding">
+
+      <view class="card-gold input-section">
+        <view class="section-title text-serif text-gold">出生日期</view>
+        <picker mode="date" value="{{birthday}}" bindchange="onBirthdayChange">
+          <view class="date-picker">
+            <text class="date-text {{birthday ? 'text-gold' : 'text-muted'}}">
+              {{birthday || '请选择出生日期'}}
+            </text>
+            <text class="date-icon">📅</text>
+          </view>
+        </picker>
+        
+        <view class="lunar-preview text-muted" wx:if="{{lunarPreview}}" style="font-size: 24rpx; text-align: center; margin-top: 12rpx;">
+          农历 {{lunarPreview}}
+        </view>
+        
+        <view class="btn-gold mt-lg" bindtap="onPaipan">
+          <block wx:if="{{!loading}}">
+            <text>排 盘</text>
+          </block>
+          <block wx:else>
+            <text>推演中</text>
+            <text class="loading-icon ml-sm">☯</text>
+          </block>
+        </view>
+        
+        <view class="input-hint text-muted mt-sm">
+          请输入公历出生日期，默认子时推算
+        </view>
+      </view>
+
+      <view class="quick-date-bar flex-between mt-md" wx:if="{{showResult}}">
+        <view class="quick-arrow" data-dir="prev" bindtap="onQuickDateChange">◀</view>
+        <view class="quick-date-info text-center">
+          <text class="text-primary">{{birthday}}</text>
+          <text class="text-muted" style="font-size: 22rpx; margin-left: 8rpx;">· {{lunarDate}}</text>
+        </view>
+        <view class="quick-arrow" data-dir="next" bindtap="onQuickDateChange">▶</view>
+        <view class="btn-today text-gold" bindtap="onToday">今日</view>
+      </view>
+
+      <block wx:if="{{showResult}}">
+        
+        <view class="card-gold mt-lg">
+          <bazi-pillars baziData="{{baziResult}}" />
+        </view>
+
+        <view class="card-gold mt-md">
+          <wuxing-chart 
+            wuxingCount="{{baziResult.wuxingCount}}"
+            balanceComment="{{baziResult.balanceComment}}"
+          />
+        </view>
+
+        <view class="divider-gold my-md"></view>
+
+        <view class="section-title text-serif text-gold px-md">流年运势</view>
+
+        <view class="card-gold mt-sm">
+          <liunian-switcher 
+            year="{{currentYear}}"
+            riZhuWuxing="{{baziResult.riZhu.wuxing}}"
+            bind:change="onYearChange"
+          />
+        </view>
+
+        <view class="card-gold mt-md" wx:if="{{currentLiunian}}">
+          <liunian-relation 
+            baziData="{{baziResult}}"
+            liunian="{{currentLiunian}}"
+          />
+        </view>
+
+        <view class="card-gold mt-md" wx:if="{{liunianAdvice}}">
+          <remedy-tabs 
+            riZhuWuxing="{{baziResult.riZhu.wuxing}}"
+            liunianGanZhi="{{currentLiunian.ganZhi}}"
+          />
+        </view>
+
+        <view class="card-gold mt-md">
+          <monthly-fortune year="{{currentYear}}" />
+        </view>
+
+        <view style="height: 160rpx;"></view>
+      </block>
+
+      <block wx:if="{{!showResult}}">
+        <view class="empty-hint">
+          <text class="empty-icon">☯</text>
+          <text class="text-muted mt-lg">输入生日，探索你的命理玄机</text>
+        </view>
+      </block>
+
+    </view>
+  </scroll-view>
+</view>
