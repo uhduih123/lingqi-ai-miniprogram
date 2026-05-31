@@ -1,32 +1,23 @@
 App({
-  onLaunch: function() {
-    var windowInfo = wx.getWindowInfo();
-    var deviceInfo = wx.getDeviceInfo();
-
-    this.globalData.windowInfo = windowInfo;
-    this.globalData.deviceInfo = deviceInfo;
-    this.globalData.statusBarHeight = windowInfo.statusBarHeight || 20;
-
-    console.log('灵琪AI v2 启动', deviceInfo.platform);
-
-    // Demo模式：每次启动清除档案，方便演示
-    wx.removeStorageSync('userProfile');
-    wx.removeStorageSync('baziHistory');
-    wx.removeStorageSync('birthday');
-
-    // 首次启动检测：若无档案，跳转引导页
-    var profile = wx.getStorageSync('userProfile');
-    if (!profile) {
-      setTimeout(function() {
-        wx.navigateTo({ url: '/pages/onboarding/onboarding' });
-      }, 500);
-    }
+  onLaunch() {
+    // 获取系统信息
+    const systemInfo = wx.getSystemInfoSync();
+    this.globalData.systemInfo = systemInfo;
+    this.globalData.statusBarHeight = systemInfo.statusBarHeight;
+    
+    // 初始化缓存
+    this.globalData.birthday = wx.getStorageSync('birthday') || '';
+    this.globalData.baziResult = wx.getStorageSync('baziResult') || null;
+    
+    console.log('灵琪AI 启动', systemInfo.platform, systemInfo.version);
   },
-
+  
   globalData: {
-    windowInfo: null,
-    deviceInfo: null,
+    systemInfo: null,
     statusBarHeight: 20,
+    birthday: '',
+    baziResult: null,
+    // 当前选中的 tab 索引
     currentTab: 1
   }
 });

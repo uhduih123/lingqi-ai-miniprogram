@@ -1,11 +1,9 @@
 {
   "pages": [
-    "pages/bazi/bazi",
     "pages/lifetree/lifetree",
+    "pages/bazi/bazi",
     "pages/zhiku/zhiku",
-    "pages/energy/energy",
-    "pages/history/history",
-    "pages/onboarding/onboarding"
+    "pages/energy/energy"
   ],
   "window": {
     "backgroundTextStyle": "light",

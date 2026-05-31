@@ -2,9 +2,9 @@
   "miniprogramRoot": "miniprogram/",
   "description": "灵琪AI - 年轻人的数字命理与生涯导航官",
   "compileType": "miniprogram",
-  "libVersion": "3.16.1",
+  "libVersion": "3.3.4",
   "appid": "wx4ce4d18843ba1652",
-  "projectname": "lingqi-ai-v2",
+  "projectname": "lingqi-ai",
   "setting": {
     "es6": true,
     "postcss": true,
