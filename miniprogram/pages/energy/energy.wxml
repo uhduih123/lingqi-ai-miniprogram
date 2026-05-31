@@ -1,35 +1,101 @@
 <star-bg />
 <view class="energy-page">
-  <view class="energy-content">
+  <scroll-view class="energy-scroll" scroll-y enhanced show-scrollbar="{{false}}">
     
-    <!-- 能量球 -->
-    <view class="energy-sphere">
-      <view class="sphere-core">
-        <text class="sphere-text text-gold">☯</text>
+    <!-- ====== 每日磁场 ====== -->
+    <view class="daily-section card-gold" wx:if="{{dailyEnergy}}">
+      <view class="daily-header">
+        <text class="daily-emoji">{{dailyEnergy.emoji}}</text>
+        <text class="daily-level" style="color: {{dailyEnergy.color}};">{{dailyEnergy.level}}</text>
       </view>
-      <view class="sphere-ring ring-1"></view>
-      <view class="sphere-ring ring-2"></view>
-      <view class="sphere-ring ring-3"></view>
-      <!-- 五行粒子 -->
-      <view class="sphere-particle p1" style="color: #E5D3B3;">●</view>
-      <view class="sphere-particle p2" style="color: #8FBC8F;">●</view>
-      <view class="sphere-particle p3" style="color: #7BA4CC;">●</view>
-      <view class="sphere-particle p4" style="color: #E08070;">●</view>
-      <view class="sphere-particle p5" style="color: #C9A050;">●</view>
-    </view>
-    
-    <!-- 按钮 -->
-    <view class="energy-btns">
-      <view class="btn-gold energy-btn" bindtap="onEnergyField">
-        <text>⚡ 今日能量磁场</text>
-      </view>
-      <view class="btn-dark energy-btn mt-md" bindtap="onGenerator">
-        <text>🎲 补运生成器</text>
+      <text class="daily-hint text-secondary">{{dailyEnergy.hint}}</text>
+      <view class="daily-tips">
+        <view class="daily-tip">
+          <text class="text-gold">✅ 宜</text>
+          <text class="text-secondary">{{dailyEnergy.lucky}}</text>
+        </view>
+        <view class="daily-tip">
+          <text class="text-muted" style="color:#E08070;">❌ 忌</text>
+          <text class="text-muted">{{dailyEnergy.avoid}}</text>
+        </view>
       </view>
     </view>
-    
-    <view class="text-center mt-xl">
-      <text class="text-muted">即将上线 · 敬请期待</text>
+
+    <!-- ====== 能量球 ====== -->
+    <view class="sphere-wrap" bindtap="onSphereTap">
+      <view class="energy-sphere {{sphereAnim ? 'sphere-bounce' : ''}}">
+        <view class="sphere-glow" style="border-color: {{energyColor}};"></view>
+        <view class="sphere-core" style="background: radial-gradient(circle, {{energyColor}}22, transparent 70%);">
+          <text class="sphere-icon">☯</text>
+        </view>
+        <view class="sphere-ring ring-1" style="border-color: {{energyColor}}44;"></view>
+        <view class="sphere-ring ring-2" style="border-color: {{energyColor}}22;"></view>
+        
+        <!-- 粒子 -->
+        <view class="sphere-particle p1" style="background: {{energyColor}};">●</view>
+        <view class="sphere-particle p2" style="background: {{energyColor}};">●</view>
+        <view class="sphere-particle p3" style="background: {{energyColor}};">●</view>
+      </view>
+      
+      <view class="energy-info">
+        <text class="energy-level-text" style="color: {{energyColor}};">{{energyLevel}}%</text>
+        <text class="energy-desc text-secondary">{{energyText}}</text>
+      </view>
+      
+      <text class="tap-hint text-muted">点击能量球检测你的能量值</text>
+    </view>
+
+    <!-- ====== 签文生成器 ====== -->
+    <view class="fortune-section">
+      <view class="btn-gold fortune-btn" bindtap="onGenerateFortune">
+        <text wx:if="{{!generating}}">🎲 抽取今日签文</text>
+        <view wx:else class="generating">
+          <text>天地玄黄</text>
+          <text class="loading-icon ml-sm">☯</text>
+        </view>
+      </view>
+
+      <!-- 签文结果 -->
+      <view class="fortune-result {{showFortune ? 'fortune-show' : ''}}" wx:if="{{fortune}}">
+        <view class="fortune-card card-gold">
+          <text class="fortune-qian" style="color: {{fortune.level === 'best' ? '#D4AF37' : fortune.level === 'good' ? '#8FBC8F' : fortune.level === 'bad' ? '#E08070' : '#7BA4CC'}};">
+            {{fortune.emoji}} {{fortune.qian}}
+          </text>
+          <text class="fortune-text text-primary">{{fortune.text}}</text>
+          <view class="divider-gold"></view>
+          <text class="fortune-advice text-secondary">{{fortune.advice}}</text>
+          <view class="fortune-actions">
+            <view class="btn-dark fortune-save" bindtap="onSaveFortune">💾 保存签文</view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 查看已保存 -->
+      <view class="saved-toggle mt-md text-center" bindtap="toggleSaved">
+        <text class="text-muted">📜 已保存的签文 ({{savedFortunes.length}})</text>
+      </view>
+    </view>
+
+    <view style="height: 120rpx;"></view>
+  </scroll-view>
+
+  <!-- ====== 已保存签文弹窗 ====== -->
+  <view class="modal-overlay {{showSaved ? 'modal-show' : ''}}" bindtap="closeSaved">
+    <view class="modal-content saved-modal" catchtap="">
+      <view class="modal-close" bindtap="closeSaved">✕</view>
+      <text class="text-serif text-gold" style="font-size: 32rpx;">📜 我的签文</text>
+      <scroll-view class="saved-list" scroll-y>
+        <block wx:for="{{savedFortunes}}" wx:key="time">
+          <view class="saved-item">
+            <text class="saved-qian">{{item.emoji}} {{item.qian}}</text>
+            <text class="saved-text text-secondary">{{item.text}}</text>
+            <text class="saved-time text-muted">{{item.time}}</text>
+          </view>
+        </block>
+        <view wx:if="{{savedFortunes.length === 0}}" class="text-center text-muted" style="padding: 60rpx 0;">
+          还没有保存过签文
+        </view>
+      </scroll-view>
     </view>
   </view>
 </view>

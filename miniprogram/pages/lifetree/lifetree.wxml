@@ -1,74 +1,127 @@
 <star-bg />
 <view class="lifetree-page">
-  <view class="tree-container">
-    
-    <!-- 水墨树 -->
+  
+  <!-- 树形图 -->
+  <view class="tree-area {{detailVisible ? 'tree-shrink' : ''}}">
     <view class="tree-visual">
-      
       <!-- 树根 -->
       <view class="tree-roots">
         <view class="root root-1"></view>
         <view class="root root-2"></view>
         <view class="root root-3"></view>
       </view>
-      
       <!-- 树干 -->
       <view class="tree-trunk"></view>
       
-      <!-- 分支1 - 学业 (左上) -->
-      <view class="tree-branch branch-1">
+      <!-- 学业节点 左上 -->
+      <view class="tree-branch branch-1" data-node="study" bindtap="onNodeTap">
         <view class="branch-line"></view>
-        <view class="branch-node">
-          <text class="node-icon">🎓</text>
-          <text class="node-label">学业</text>
-          <text class="node-tag">{{'已连接'}}</text>
+        <view class="branch-node {{activeNode === 'study' ? 'node-active' : ''}}">
+          <text class="node-icon">{{nodes.study.icon}}</text>
+          <text class="node-label">{{nodes.study.label}}</text>
+          <view class="node-progress-mini">
+            <view class="mini-bar" style="width: {{nodes.study.progress}}%"></view>
+          </view>
+          <text class="node-tag text-gold">{{nodes.study.tag}}</text>
         </view>
       </view>
       
-      <!-- 分支2 - 事业 (右上) -->
-      <view class="tree-branch branch-2">
+      <!-- 事业节点 右上 -->
+      <view class="tree-branch branch-2" data-node="career" bindtap="onNodeTap">
         <view class="branch-line"></view>
-        <view class="branch-node">
-          <text class="node-icon">💼</text>
-          <text class="node-label">事业</text>
-          <text class="node-tag">即将上线</text>
+        <view class="branch-node {{activeNode === 'career' ? 'node-active' : ''}}">
+          <text class="node-icon">{{nodes.career.icon}}</text>
+          <text class="node-label">{{nodes.career.label}}</text>
+          <view class="node-progress-mini">
+            <view class="mini-bar" style="width: {{nodes.career.progress}}%"></view>
+          </view>
+          <text class="node-tag">{{nodes.career.tag}}</text>
         </view>
       </view>
       
-      <!-- 分支3 - 姻缘 (左下) -->
-      <view class="tree-branch branch-3">
+      <!-- 姻缘节点 左 -->
+      <view class="tree-branch branch-3" data-node="love" bindtap="onNodeTap">
         <view class="branch-line"></view>
-        <view class="branch-node">
-          <text class="node-icon">💕</text>
-          <text class="node-label">姻缘</text>
-          <text class="node-tag">即将上线</text>
+        <view class="branch-node {{activeNode === 'love' ? 'node-active' : ''}}">
+          <text class="node-icon">{{nodes.love.icon}}</text>
+          <text class="node-label">{{nodes.love.label}}</text>
+          <view class="node-progress-mini">
+            <view class="mini-bar" style="width: {{nodes.love.progress}}%"></view>
+          </view>
+          <text class="node-tag">{{nodes.love.tag}}</text>
         </view>
       </view>
       
-      <!-- 分支4 - 健康 (右下) -->
-      <view class="tree-branch branch-4">
+      <!-- 健康节点 右 -->
+      <view class="tree-branch branch-4" data-node="health" bindtap="onNodeTap">
         <view class="branch-line"></view>
-        <view class="branch-node">
-          <text class="node-icon">🏥</text>
-          <text class="node-label">健康</text>
-          <text class="node-tag">即将上线</text>
+        <view class="branch-node {{activeNode === 'health' ? 'node-active' : ''}}">
+          <text class="node-icon">{{nodes.health.icon}}</text>
+          <text class="node-label">{{nodes.health.label}}</text>
+          <view class="node-progress-mini">
+            <view class="mini-bar" style="width: {{nodes.health.progress}}%"></view>
+          </view>
+          <text class="node-tag">{{nodes.health.tag}}</text>
         </view>
       </view>
       
-      <!-- 树冠叶子 -->
+      <!-- 树冠 -->
       <view class="tree-canopy">
         <view class="leaf leaf-1"></view>
         <view class="leaf leaf-2"></view>
         <view class="leaf leaf-3"></view>
         <view class="leaf leaf-4"></view>
         <view class="leaf leaf-5"></view>
-        <view class="leaf leaf-6"></view>
       </view>
-      
     </view>
     
-    <view class="tree-caption text-muted">
-      命理之树 · 伴你生长
+    <view class="tree-caption text-muted">点击节点查看详情</view>
+  </view>
+
+  <!-- 详情面板（从底部滑入） -->
+  <view class="detail-panel {{detailVisible ? 'panel-show' : ''}}" wx:if="{{activeNode}}">
+    <view class="panel-header">
+      <view class="panel-title-row">
+        <text class="panel-icon">{{nodes[activeNode].icon}}</text>
+        <text class="panel-label text-serif">{{nodes[activeNode].label}}规划</text>
+        <view class="panel-close" bindtap="onCloseDetail">✕</view>
+      </view>
+      
+      <!-- 进度条 -->
+      <view class="panel-progress">
+        <view class="progress-bar">
+          <view class="progress-fill" style="width: {{nodes[activeNode].progress}}%"></view>
+        </view>
+        <text class="progress-text text-gold">{{nodes[activeNode].progress}}%</text>
+      </view>
     </view>
+
+    <scroll-view class="panel-body" scroll-y enhanced show-scrollbar="{{false}}">
+      <!-- 详情列表 -->
+      <view class="detail-list">
+        <block wx:for="{{nodes[activeNode].details}}" wx:key="label">
+          <view class="detail-item">
+            <text class="detail-label">{{item.label}}</text>
+            <text class="detail-value">{{item.value}}</text>
+          </view>
+        </block>
+      </view>
+
+      <!-- 时间线 -->
+      <view class="timeline-title text-serif text-gold">人生时间线</view>
+      <view class="timeline">
+        <block wx:for="{{nodes[activeNode].timeline}}" wx:key="time">
+          <view class="timeline-item">
+            <view class="timeline-dot"></view>
+            <view class="timeline-content">
+              <text class="timeline-time text-gold">{{item.time}}</text>
+              <text class="timeline-event text-secondary">{{item.event}}</text>
+            </view>
+          </view>
+        </block>
+      </view>
+      
+      <view style="height: 60rpx;"></view>
+    </scroll-view>
   </view>
 </view>

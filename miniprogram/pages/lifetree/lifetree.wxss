@@ -1,218 +1,264 @@
-/* ========================================
-   人生树页面
-   水墨线条风格
-   ======================================== */
-
 .lifetree-page {
   min-height: 100vh;
   background: linear-gradient(180deg, #0C0C0C 0%, #1A2A1F 100%);
   position: relative;
   z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  overflow: hidden;
 }
 
-.tree-container {
+/* ====== 树形区域 ====== */
+.tree-area {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 60rpx 0 100rpx;
+  padding-top: 40rpx;
+  transition: transform 0.4s ease, opacity 0.4s ease;
 }
 
-/* ---- 树木画布 ---- */
+.tree-shrink {
+  transform: scale(0.7) translateY(-80rpx);
+  opacity: 0.5;
+}
+
 .tree-visual {
   position: relative;
-  width: 560rpx;
-  height: 640rpx;
+  width: 100%;
+  height: 600rpx;
 }
 
-/* ---- 树干 ---- */
-.tree-trunk {
+.tree-trunk { z-index: 1;
   position: absolute;
-  bottom: 80rpx;
+  bottom: 60rpx;
   left: 50%;
   transform: translateX(-50%);
-  width: 20rpx;
-  height: 260rpx;
-  background: linear-gradient(to top, rgba(255,255,255,0.25), rgba(255,255,255,0.08));
+  width: 18rpx;
+  height: 240rpx;
+  background: linear-gradient(to top, rgba(255,255,255,0.25), rgba(255,255,255,0.06));
   border-radius: 6rpx;
 }
 
-/* ---- 树根 ---- */
 .tree-roots {
   position: absolute;
-  bottom: 80rpx;
+  bottom: 60rpx;
   left: 50%;
   transform: translateX(-50%);
   width: 80rpx;
   height: 40rpx;
 }
-
 .root {
   position: absolute;
   bottom: 0;
-  height: 40rpx;
+  height: 36rpx;
   width: 4rpx;
-  background: rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.18);
   border-radius: 2rpx;
   transform-origin: top center;
 }
-.root-1 { left: 20rpx; transform: rotate(25deg); }
-.root-2 { left: 38rpx; transform: rotate(0deg); }
-.root-3 { left: 56rpx; transform: rotate(-25deg); }
+.root-1 { left: 16rpx; transform: rotate(30deg); }
+.root-2 { left: 38rpx; }
+.root-3 { left: 60rpx; transform: rotate(-30deg); }
 
-/* ---- 分支公共 ---- */
-.tree-branch {
-  position: absolute;
-}
+/* 分支 */
+.tree-branch { position: absolute; z-index: 2; }
+.branch-1 { left: 18%; top: 100rpx; }
+.branch-2 { right: 18%; top: 100rpx; }
+.branch-3 { left: 18%; bottom: 100rpx; }
+.branch-4 { right: 18%; bottom: 100rpx; }
 
-/* 分支连线 */
 .branch-line {
   position: absolute;
-  background: rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.1);
   border-radius: 2rpx;
-  transform-origin: top left;
-}
-
-/* ---- 分支1 学业 - 左上 ---- */
-.branch-1 {
-  right: 55%;
-  bottom: 250rpx;
-}
-.branch-1 .branch-line {
-  width: 120rpx;
   height: 3rpx;
-  top: 50%;
-  left: 30rpx;
-  transform: rotate(-30deg);
 }
-.branch-1 .branch-node {
-  margin-left: -20rpx;
-}
+.branch-1 .branch-line { width: 120rpx; top: 50%; left: 90rpx; }
+.branch-2 .branch-line { width: 120rpx; top: 50%; right: 90rpx; left: auto; transform-origin: top right; }
+.branch-3 .branch-line { width: 120rpx; top: 50%; left: 90rpx; }
+.branch-4 .branch-line { width: 120rpx; top: 50%; right: 90rpx; left: auto; transform-origin: top right; }
 
-/* ---- 分支2 事业 - 右上 ---- */
-.branch-2 {
-  left: 55%;
-  bottom: 310rpx;
-}
-.branch-2 .branch-line {
-  width: 130rpx;
-  height: 3rpx;
-  top: 50%;
-  right: 30rpx;
-  transform: rotate(25deg);
-  left: auto;
-  transform-origin: top right;
-}
-.branch-2 .branch-node {
-  margin-right: -20rpx;
-}
-
-/* ---- 分支3 姻缘 - 左中 ---- */
-.branch-3 {
-  right: 58%;
-  bottom: 340rpx;
-}
-.branch-3 .branch-line {
-  width: 100rpx;
-  height: 3rpx;
-  top: 50%;
-  left: 20rpx;
-  transform: rotate(-15deg);
-}
-.branch-3 .branch-node {
-  margin-left: -10rpx;
-}
-
-/* ---- 分支4 健康 - 右中 ---- */
-.branch-4 {
-  left: 58%;
-  bottom: 380rpx;
-}
-.branch-4 .branch-line {
-  width: 110rpx;
-  height: 3rpx;
-  top: 50%;
-  right: 20rpx;
-  transform: rotate(20deg);
-  left: auto;
-  transform-origin: top right;
-}
-.branch-4 .branch-node {
-  margin-right: -10rpx;
-}
-
-/* ---- 节点卡片 ---- */
+/* 节点卡片 */
 .branch-node {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: rgba(0,0,0,0.7);
-  border: 1rpx solid rgba(255,255,255,0.2);
-  border-radius: var(--radius-card);
-  padding: 16rpx 24rpx;
+  background: rgba(0,0,0,0.65);
+  border: 1rpx solid rgba(255,255,255,0.15);
+  border-radius: 16rpx;
+  padding: 12rpx 20rpx;
   backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  transition: all 0.25s ease;
+  min-width: 100rpx;
+}
+.branch-node:active { transform: scale(0.93); }
+.node-active {
+  border-color: rgba(212,175,55,0.5) !important;
+  box-shadow: 0 0 20rpx rgba(212,175,55,0.2);
 }
 
-.branch-node:active {
-  transform: scale(0.95);
-  border-color: rgba(212, 175, 55, 0.4);
-}
+.node-icon { font-size: 36rpx; }
+.node-label { font-size: 24rpx; color: #ddd; font-family: var(--font-title); margin-top: 4rpx; }
+.node-tag { font-size: 16rpx; color: var(--text-muted); margin-top: 2rpx; }
 
-.node-icon {
-  font-size: 44rpx;
-}
-
-.node-label {
-  font-size: 26rpx;
-  color: var(--text-primary);
-  font-family: var(--font-title);
+/* 迷你进度条 */
+.node-progress-mini {
+  width: 60rpx;
+  height: 4rpx;
+  background: rgba(255,255,255,0.1);
+  border-radius: 2rpx;
   margin-top: 6rpx;
+  overflow: hidden;
+}
+.mini-bar {
+  height: 100%;
+  background: var(--color-gold);
+  border-radius: 2rpx;
+  transition: width 0.8s ease;
 }
 
-.node-tag {
-  font-size: 18rpx;
-  color: var(--text-muted);
-  margin-top: 4rpx;
-}
-
-/* ---- 树冠叶子 ---- */
-.tree-canopy {
-  position: absolute;
-  top: 20rpx;
-  left: 0;
-  width: 100%;
-  height: 200rpx;
-}
-
+/* 树冠 */
+.tree-canopy { position: absolute; top: 20rpx; left: 0; width: 100%; height: 200rpx; pointer-events: none; z-index: 5; }
 .leaf {
   position: absolute;
-  width: 40rpx;
-  height: 40rpx;
+  width: 36rpx; height: 36rpx;
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, rgba(143,188,143,0.3), rgba(143,188,143,0.05));
+  background: radial-gradient(circle at 30% 30%, rgba(143,188,143,0.25), rgba(143,188,143,0.03));
   animation: leafSway 4s ease-in-out infinite;
 }
-
-.leaf-1 { top: 40rpx; left: 30%; animation-delay: 0s; }
-.leaf-2 { top: 20rpx; left: 45%; width: 50rpx; height: 50rpx; animation-delay: 0.8s; }
-.leaf-3 { top: 50rpx; left: 60%; animation-delay: 1.6s; }
-.leaf-4 { top: 70rpx; left: 25%; width: 35rpx; height: 35rpx; animation-delay: 2.4s; }
-.leaf-5 { top: 30rpx; left: 70%; animation-delay: 3.2s; }
-.leaf-6 { top: 80rpx; left: 50%; width: 45rpx; height: 45rpx; animation-delay: 0.4s; }
-
+.leaf-1 { top: 30rpx; left: 28%; animation-delay: 0s; }
+.leaf-2 { top: 10rpx; left: 43%; width: 44rpx; height: 44rpx; animation-delay: 0.7s; }
+.leaf-3 { top: 40rpx; left: 58%; animation-delay: 1.5s; }
+.leaf-4 { top: 20rpx; left: 68%; width: 30rpx; height: 30rpx; animation-delay: 2.2s; }
+.leaf-5 { top: 60rpx; left: 48%; animation-delay: 0.3s; }
 @keyframes leafSway {
-  0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.4; }
-  50% { transform: translateY(-6rpx) rotate(5deg); opacity: 0.7; }
+  0%,100% { transform: translateY(0) rotate(0deg); opacity: 0.35; }
+  50% { transform: translateY(-4rpx) rotate(6deg); opacity: 0.6; }
 }
 
-/* ---- 底部文字 ---- */
 .tree-caption {
-  margin-top: 40rpx;
-  font-size: 24rpx;
+  margin-top: 24rpx;
+  font-size: 22rpx;
   font-family: var(--font-title);
-  letter-spacing: 8rpx;
+  letter-spacing: 4rpx;
 }
+
+/* ====== 详情面板 ====== */
+.detail-panel {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-height: 65vh;
+  background: rgba(18,18,18,0.97);
+  backdrop-filter: blur(20px);
+  border-top: 1rpx solid rgba(212,175,55,0.2);
+  border-radius: 32rpx 32rpx 0 0;
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+  z-index: 10;
+}
+.panel-show { transform: translateY(0); }
+
+.panel-header {
+  padding: 28rpx 32rpx 20rpx;
+  border-bottom: 1rpx solid rgba(255,255,255,0.06);
+}
+.panel-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+.panel-icon { font-size: 40rpx; }
+.panel-label { font-size: 32rpx; letter-spacing: 4rpx; }
+.panel-close {
+  margin-left: auto;
+  font-size: 32rpx;
+  color: var(--text-muted);
+  padding: 8rpx 16rpx;
+}
+
+/* 进度条 */
+.panel-progress {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin-top: 16rpx;
+}
+.progress-bar {
+  flex: 1;
+  height: 8rpx;
+  background: rgba(255,255,255,0.08);
+  border-radius: 4rpx;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #D4AF37, #F0D060);
+  border-radius: 4rpx;
+  transition: width 1s ease;
+}
+.progress-text { font-size: 24rpx; font-weight: 600; }
+
+/* 滚动体 */
+.panel-body {
+  max-height: 55vh;
+  padding: 0 32rpx;
+}
+
+/* 详情列表 */
+.detail-list {
+  padding: 20rpx 0;
+}
+.detail-item {
+  padding: 14rpx 0;
+  border-bottom: 1rpx solid rgba(255,255,255,0.04);
+}
+.detail-label {
+  display: block;
+  font-size: 20rpx;
+  color: var(--text-muted);
+  margin-bottom: 4rpx;
+}
+.detail-value {
+  display: block;
+  font-size: 26rpx;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+/* 时间线 */
+.timeline-title {
+  font-size: 26rpx;
+  letter-spacing: 4rpx;
+  margin: 24rpx 0 16rpx;
+}
+.timeline { padding-left: 8rpx; }
+.timeline-item {
+  display: flex;
+  gap: 16rpx;
+  padding-bottom: 24rpx;
+  position: relative;
+}
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: 7rpx;
+  top: 18rpx;
+  bottom: 0;
+  width: 1rpx;
+  background: rgba(255,255,255,0.08);
+}
+.timeline-item:last-child::before { display: none; }
+.timeline-dot {
+  width: 14rpx; height: 14rpx;
+  border-radius: 50%;
+  background: var(--color-gold);
+  flex-shrink: 0;
+  margin-top: 6rpx;
+}
+.timeline-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+.timeline-time { font-size: 22rpx; font-weight: 600; }
+.timeline-event { font-size: 24rpx; }

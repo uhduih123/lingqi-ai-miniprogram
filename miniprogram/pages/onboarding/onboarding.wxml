@@ -1,0 +1,112 @@
+<star-bg />
+<view class="onboard-page">
+  <scroll-view class="onboard-scroll" scroll-y enhanced show-scrollbar="{{false}}">
+    
+    <!-- 头部 -->
+    <view class="onboard-header">
+      <text class="onboard-icon">☯</text>
+      <text class="onboard-title text-serif text-gold">灵琪AI · 认识你</text>
+      <text class="onboard-sub text-muted">填写基本信息，开启命理之旅</text>
+    </view>
+
+    <!-- 表单区 -->
+    <view class="onboard-form">
+
+      <!-- 姓名 -->
+      <view class="form-item">
+        <text class="form-label">你的名字</text>
+        <input 
+          class="form-input" 
+          type="text"
+          placeholder="请输入姓名" 
+          placeholder-class="input-placeholder"
+          value="{{name}}"
+          bindinput="onNameInput"
+          maxlength="10"
+          cursor-spacing="120"
+          adjust-position="{{true}}"
+        />
+      </view>
+
+      <!-- 生日 -->
+      <view class="form-item">
+        <text class="form-label">出生日期</text>
+        <picker mode="date" value="{{birthday}}" bindchange="onBirthdayChange">
+          <view class="form-picker {{birthday ? '' : 'picker-empty'}}">
+            <text>{{birthday || '请选择公历生日'}}</text>
+            <text class="picker-arrow">📅</text>
+          </view>
+        </picker>
+      </view>
+
+      <!-- 性别 -->
+      <view class="form-item">
+        <text class="form-label">性别</text>
+        <picker range="{{genders}}" value="{{genderIndex}}" bindchange="onGenderChange">
+          <view class="form-picker {{genderIndex >= 0 ? '' : 'picker-empty'}}">
+            <text>{{genderIndex >= 0 ? genders[genderIndex] : '请选择'}}</text>
+            <text class="picker-arrow">▾</text>
+          </view>
+        </picker>
+      </view>
+
+      <!-- 阶段 -->
+      <view class="form-item">
+        <text class="form-label">当前阶段</text>
+        <picker range="{{stages}}" value="{{stageIndex}}" bindchange="onStageChange">
+          <view class="form-picker {{stageIndex >= 0 ? '' : 'picker-empty'}}">
+            <text>{{stageIndex >= 0 ? stages[stageIndex] : '请选择'}}</text>
+            <text class="picker-arrow">▾</text>
+          </view>
+        </picker>
+      </view>
+
+      <!-- 年级 -->
+      <view class="form-item">
+        <text class="form-label">
+          {{stageIndex === 0 ? '年级' : '职位'}}
+        </text>
+        <input 
+          class="form-input" 
+          placeholder="{{stageIndex === 0 ? '如：大二下学期' : '如：产品经理'}}" 
+          placeholder-class="input-placeholder"
+          value="{{grade}}"
+          bindinput="onGradeInput"
+          maxlength="20"
+          cursor-spacing="120"
+          adjust-position="{{true}}"
+        />
+      </view>
+
+      <!-- 专业 -->
+      <view class="form-item">
+        <text class="form-label">
+          {{stageIndex === 0 ? '专业' : '行业'}}
+        </text>
+        <input 
+          class="form-input" 
+          placeholder="{{stageIndex === 0 ? '如：工业工程' : '如：互联网/电商'}}" 
+          placeholder-class="input-placeholder"
+          value="{{major}}"
+          bindinput="onMajorInput"
+          maxlength="20"
+          cursor-spacing="120"
+          adjust-position="{{true}}"
+        />
+      </view>
+
+    </view>
+
+    <!-- 提交按钮 -->
+    <view class="onboard-footer">
+      <view class="btn-gold onboard-btn {{canSubmit ? '' : 'btn-disabled'}}" bindtap="onSubmit">
+        <text>开启命理之旅 ✦</text>
+      </view>
+      <text class="onboard-hint text-muted">
+        信息仅存储在本地，不会上传
+      </text>
+    </view>
+
+    <view style="height: 80rpx;"></view>
+  </scroll-view>
+</view>

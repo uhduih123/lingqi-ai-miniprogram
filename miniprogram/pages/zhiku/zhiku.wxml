@@ -1,31 +1,111 @@
 <star-bg />
 <view class="zhiku-page">
-  <view class="zhiku-content">
+  
+  <!-- 标签切换 -->
+  <view class="zhiku-tabs">
+    <view class="zhiku-tab {{activeTab === 0 ? 'tab-active' : ''}}" data-idx="0" bindtap="switchTab">
+      <text>🧙 大师咨询</text>
+    </view>
+    <view class="zhiku-tab {{activeTab === 1 ? 'tab-active' : ''}}" data-idx="1" bindtap="switchTab">
+      <text>🎓 技能商城</text>
+    </view>
+  </view>
+
+  <scroll-view class="zhiku-scroll" scroll-y enhanced show-scrollbar="{{false}}">
     
-    <!-- 大师咨询 -->
-    <view class="section-header text-serif text-gold">✦ 大师咨询</view>
-    <scroll-view class="master-list" scroll-x enhanced show-scrollbar="{{false}}">
-      <view class="master-card" wx:for="{{masters}}" wx:key="id">
-        <view class="master-avatar">{{item.avatar}}</view>
-        <view class="master-name">{{item.name}}</view>
-        <view class="master-skill text-muted">{{item.skill}}</view>
-        <view class="master-stars text-gold">{{item.stars}}</view>
+    <!-- ====== 大师列表 ====== -->
+    <view wx:if="{{activeTab === 0}}" class="master-list">
+      <block wx:for="{{masters}}" wx:key="id">
+        <view class="master-card" data-id="{{item.id}}" bindtap="onMasterTap">
+          <view class="master-left">
+            <view class="master-avatar">{{item.avatar}}</view>
+          </view>
+          <view class="master-right">
+            <view class="master-top">
+              <text class="master-name">{{item.name}}</text>
+              <text class="master-stars text-gold">{{item.starsStr}}</text>
+            </view>
+            <text class="master-skill text-secondary">{{item.skill}}</text>
+            <view class="master-tags">
+              <text class="master-tag" wx:for="{{item.tags}}" wx:key="*this" wx:for-item="t">{{t}}</text>
+            </view>
+            <view class="master-bottom">
+              <text class="master-rate text-gold">{{item.rate}}</text>
+              <text class="master-orders text-muted">{{item.orders}}单</text>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <!-- ====== 技能商城 ====== -->
+    <view wx:if="{{activeTab === 1}}" class="skill-grid">
+      <block wx:for="{{skills}}" wx:key="id">
+        <view class="skill-card" data-id="{{item.id}}" bindtap="onSkillTap">
+          <text class="skill-emoji">{{item.emoji}}</text>
+          <text class="skill-name">{{item.name}}</text>
+          <text class="skill-desc text-muted">{{item.desc}}</text>
+          <view class="skill-footer">
+            <text class="skill-price text-gold">¥{{item.price}}</text>
+            <text class="skill-sold text-muted">{{item.sold}}人已购</text>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <view style="height: 120rpx;"></view>
+  </scroll-view>
+
+  <!-- ====== 大师详情弹窗 ====== -->
+  <view class="modal-overlay {{showMaster ? 'modal-show' : ''}}" bindtap="closeMaster">
+    <view class="modal-content master-modal" catchtap="">
+      <view class="modal-close" bindtap="closeMaster">✕</view>
+      <view class="master-modal-avatar">{{selectedMaster.avatar}}</view>
+      <text class="master-modal-name">{{selectedMaster.name}}</text>
+      <text class="master-modal-skill text-gold">{{selectedMaster.skill}}</text>
+      <view class="master-modal-stars">
+        <text class="text-gold">{{selectedMaster.starsStr}}</text>
+        <text class="text-muted">{{selectedMaster.rating}}分</text>
       </view>
-    </scroll-view>
-    
-    <!-- 技能商城 -->
-    <view class="section-header text-serif text-gold mt-xl">✦ 玄学技能</view>
-    <view class="skill-grid">
-      <view class="skill-card" wx:for="{{skills}}" wx:key="id">
-        <view class="skill-emoji">{{item.emoji}}</view>
-        <view class="skill-name">{{item.name}}</view>
-        <view class="skill-price text-gold">{{item.price}}</view>
-        <view class="skill-badge">内测中</view>
+      <text class="master-modal-intro text-secondary">{{selectedMaster.intro}}</text>
+      <view class="master-modal-tags">
+        <text class="master-tag" wx:for="{{selectedMaster.tags}}" wx:key="*this" wx:for-item="t">{{t}}</text>
+      </view>
+      <view class="modal-btn btn-gold" bindtap="onConsultMaster">
+        <text>在线咨询 {{selectedMaster.rate}}</text>
       </view>
     </view>
-    
-    <view class="text-center mt-xl" style="padding-bottom: 100rpx;">
-      <text class="text-muted">更多技能即将上线 · 敬请期待</text>
+  </view>
+
+  <!-- ====== 技能购买弹窗 ====== -->
+  <view class="modal-overlay {{showSkill ? 'modal-show' : ''}}" bindtap="closeSkill">
+    <view class="modal-content skill-modal" catchtap="">
+      <view class="modal-close" bindtap="closeSkill">✕</view>
+      
+      <!-- 购买前 -->
+      <block wx:if="{{!purchaseSuccess}}">
+        <text class="skill-modal-emoji">{{selectedSkill.emoji}}</text>
+        <text class="skill-modal-name">{{selectedSkill.name}}</text>
+        <text class="skill-modal-desc text-secondary">{{selectedSkill.desc}}</text>
+        <view class="skill-modal-info">
+          <text class="text-gold" style="font-size: 48rpx; font-weight: bold;">¥{{selectedSkill.price}}</text>
+          <text class="text-muted">{{selectedSkill.sold}}人已购买</text>
+        </view>
+        <view class="modal-btn btn-gold" bindtap="onPurchaseSkill">
+          <text wx:if="{{!purchasing}}">立即购买</text>
+          <text wx:else>支付中 ☯</text>
+        </view>
+      </block>
+
+      <!-- 购买成功 -->
+      <block wx:else>
+        <text style="font-size: 100rpx;">🎉</text>
+        <text class="skill-modal-name">购买成功！</text>
+        <text class="text-secondary">已解锁「{{selectedSkill.name}}」</text>
+        <view class="modal-btn btn-gold" bindtap="closeSkill">
+          <text>开始使用</text>
+        </view>
+      </block>
     </view>
   </view>
 </view>

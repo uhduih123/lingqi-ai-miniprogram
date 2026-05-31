@@ -5,7 +5,7 @@
         style="padding-top: {{statusBarHeight}}px; height: {{navBarHeight}}px;">
     <view class="nav-content">
       <view class="nav-title text-serif text-gold">命盘·八字</view>
-      <view class="nav-history text-muted">🕐</view>
+      <view class="nav-history text-muted" bindtap="goHistory">🕐</view>
     </view>
   </view>
 
@@ -29,6 +29,10 @@
             <text class="date-icon">📅</text>
           </view>
         </picker>
+        
+        <view class="lunar-preview text-muted" wx:if="{{lunarPreview}}" style="font-size: 24rpx; text-align: center; margin-top: 12rpx;">
+          农历 {{lunarPreview}}
+        </view>
         
         <view class="btn-gold mt-lg" bindtap="onPaipan">
           <block wx:if="{{!loading}}">

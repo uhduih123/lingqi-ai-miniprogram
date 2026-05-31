@@ -11,6 +11,7 @@ Page({
     showResult: false,
     baziResult: null,
     lunarDate: '',
+    lunarPreview: '',
     
     // 流年
     currentYear: 2026,
@@ -30,8 +31,8 @@ Page({
 
   onLoad() {
     try {
-      const sys = wx.getSystemInfoSync();
-      const statusBarH = sys.statusBarHeight || 20;
+      var windowInfo = wx.getWindowInfo();
+      var statusBarH = windowInfo.statusBarHeight || 20;
       
       // getMenuButtonBoundingClientRect 在某些版本可能不可用
       let navBarH = 44;
@@ -52,18 +53,42 @@ Page({
       const cached = wx.getStorageSync('birthday');
       if (cached) {
         this.setData({ birthday: cached });
+      } else {
+        // 从档案读取生日
+        var profile = wx.getStorageSync('userProfile');
+        if (profile && profile.birthday) {
+          this.setData({ birthday: profile.birthday });
+        }
       }
       
-      // 设置默认日期为今天
+      // 优先从档案读取生日
+      var profile = wx.getStorageSync('userProfile');
+      if (profile && profile.birthday) {
+        this.setData({ birthday: profile.birthday, profileSet: true });
+        console.log('从档案读取生日:', profile.birthday);
+      }
+      
+      // 否则设置默认日期为今天
       if (!this.data.birthday) {
-        const today = new Date();
-        const y = today.getFullYear();
-        const m = String(today.getMonth() + 1).padStart(2, '0');
-        const d = String(today.getDate()).padStart(2, '0');
-        this.setData({ birthday: `${y}-${m}-${d}`, currentYear: y });
+        var today = new Date();
+        var y = today.getFullYear();
+        var m = String(today.getMonth() + 1).padStart(2, '0');
+        var d = String(today.getDate()).padStart(2, '0');
+        this.setData({ birthday: y + '-' + m + '-' + d, currentYear: y });
       }
       
       console.log('命盘页面初始化完成', this.data.birthday);
+
+      // 检查是否有需要恢复的排盘
+      var restoreBazi = wx.getStorageSync('restoreBazi');
+      var restoreBirthday = wx.getStorageSync('restoreBirthday');
+      if (restoreBazi && restoreBirthday) {
+        wx.removeStorageSync('restoreBazi');
+        wx.removeStorageSync('restoreBirthday');
+        this.setData({ birthday: restoreBirthday }, function() {
+          this.doCalculate();
+        }.bind(this));
+      }
     } catch (err) {
       console.error('onLoad 失败:', err);
       // 设置默认值保证页面可用
@@ -75,11 +100,35 @@ Page({
     }
   },
 
+  onShow: function() {
+    // 每次切换到命盘Tab时同步档案生日
+    if (!this.data.showResult) {
+      var profile = wx.getStorageSync('userProfile');
+      if (profile && profile.birthday) {
+        if (this.data.birthday !== profile.birthday) {
+          this.setData({ birthday: profile.birthday });
+          console.log('onShow 同步生日:', profile.birthday);
+        }
+      }
+    }
+  },
+
   // ==================== 输入区 ====================
   
-  onBirthdayChange(e) {
+  onBirthdayChange: function(e) {
     this.setData({ birthday: e.detail.value });
     console.log('日期已选择:', e.detail.value);
+    // 实时预览农历
+    var parts = e.detail.value.split('-');
+    if (parts.length === 3) {
+      var y = parseInt(parts[0]), m = parseInt(parts[1]), d = parseInt(parts[2]);
+      try {
+        var lunarPreview = solarToLunar(y, m, d);
+        this.setData({ lunarPreview: lunarPreview });
+      } catch (err) {
+        this.setData({ lunarPreview: '' });
+      }
+    }
   },
 
   onPaipan() {
@@ -200,6 +249,52 @@ Page({
     this.setData({
       scrollTop: scrollTop,
       headerShadow: scrollTop > 20
+    });
+  },
+
+  // ==================== 历史排盘 ====================
+
+  saveToHistory(result) {
+    try {
+      var records = wx.getStorageSync('baziHistory') || [];
+      var now = new Date();
+      var timeStr = now.getFullYear() + '-' +
+        String(now.getMonth() + 1).padStart(2, '0') + '-' +
+        String(now.getDate()).padStart(2, '0') + ' ' +
+        String(now.getHours()).padStart(2, '0') + ':' +
+        String(now.getMinutes()).padStart(2, '0');
+
+      // 避免重复记录（同一天同一生日）
+      var exists = records.some(function(r) {
+        return r.birthday === this.data.birthday && r.timeStr === timeStr;
+      }.bind(this));
+      
+      if (!exists) {
+        records.unshift({
+          birthday: this.data.birthday,
+          lunarDate: result.lunarDate,
+          rizhu: result.riZhu.gan + result.riZhu.wuxing,
+          comment: result.balanceComment,
+          timeStr: timeStr,
+          time: now.toISOString(),
+          result: result
+        });
+
+        // 最多保留20条
+        if (records.length > 20) {
+          records = records.slice(0, 20);
+        }
+
+        wx.setStorageSync('baziHistory', records);
+      }
+    } catch (e) {
+      console.error('保存历史失败:', e);
+    }
+  },
+
+  goHistory() {
+    wx.navigateTo({
+      url: '/pages/history/history'
     });
   },
 
